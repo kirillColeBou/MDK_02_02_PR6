@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -26,6 +27,9 @@ namespace RegIn_Тепляков.Pages
         public Recovery()
         {
             InitializeComponent();
+            MainWindow.mainWindow.userLogin.HandlerCorrectLogin += CorrectLogin;
+            MainWindow.mainWindow.userLogin.HandlerInCorrectLogin += InCorrectLogin;
+            Capture.HandlerCorrectCapture += CorrectCapture;
         }
 
         void animation(bool flag)
@@ -56,5 +60,68 @@ namespace RegIn_Тепляков.Pages
             };
             IUser.BeginAnimation(OpacityProperty, start);
         }
+
+        public void CorrectLogin()
+        {
+            if (OldLogin != TbLogin.Text)
+            {
+                SetNotification("Hi, " + MainWindow.mainWindow.userLogin.Name, Brushes.Black);
+                try
+                {
+                    animation(true);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                };
+                OldLogin = TbLogin.Text;
+                SendNewPassword();
+            }
+        }
+
+        public void InCorrectLogin()
+        {
+            if (LNameUser.Content.ToString() != "")
+            {
+                LNameUser.Content = "";
+                animation(false);
+            }
+            if (TbLogin.Text.Length > 0) SetNotification("Login is incorrect", Brushes.Red);
+        }
+
+        public void CorrectCapture()
+        {
+            Capture.IsEnabled = false;
+            IsCapture = true;
+            SendNewPassword();
+        }
+
+        private void SetLogin(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) MainWindow.mainWindow.userLogin.GetUserLogin(TbLogin.Text);
+        }
+
+        private void SetLogin(object sender, RoutedEventArgs e) => MainWindow.mainWindow.userLogin.GetUserLogin(TbLogin.Text);
+
+        public void SendNewPassword()
+        {
+            if (IsCapture)
+            {
+                if(MainWindow.mainWindow.userLogin.Password != String.Empty)
+                {
+                    animation(false);
+                    SetNotification("An email has been sent to your email.", Brushes.Black);
+                    MainWindow.mainWindow.userLogin.CreateNewPassword();
+                }
+            }
+        }
+
+        public void SetNotification(string Message, SolidColorBrush _Color)
+        {
+            LNameUser.Content = Message;
+            LNameUser.Foreground = _Color;
+        }
+
+        private void OpenLogin(object sender, MouseButtonEventArgs e) => MainWindow.mainWindow.OpenPage(new Login());
     }
 }
