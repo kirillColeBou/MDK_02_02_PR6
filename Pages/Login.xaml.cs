@@ -117,7 +117,7 @@ namespace RegIn_Тепляков.Pages
                         }
                         else
                         {
-                            Thread TBlockAutorization = new Thread(BlockAutorization);
+                            Thread TBlockAutorization = new Thread(BlockAuthorization);
                             TBlockAutorization.Start();
                             SendMail.SendMessage("An attempt was made to log into your account.", MainWindow.mainWindow.userLogin.Login);
                         }
