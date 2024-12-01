@@ -22,5 +22,30 @@ namespace RegIn_Тепляков.Pages
         {
             InitializeComponent();
         }
+
+        private void RecoveryPassword(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void OpenRegin(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void SetLogin(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void SetPassword(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void SetLogin(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
