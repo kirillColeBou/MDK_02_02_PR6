@@ -31,6 +31,12 @@ namespace RegIn_Тепляков.Classes
             return command.ExecuteReader();
         }
 
+        public static void CloseConnection(MySqlConnection connection)
+        {
+            connection.Close();
+            MySqlConnection.ClearPool(connection);
+        }
+
         public static bool OpenConnection(MySqlConnection connection) => connection != null && connection.State == System.Data.ConnectionState.Open;
     }
 }

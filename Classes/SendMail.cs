@@ -16,7 +16,7 @@ namespace RegIn_Тепляков.Classes
                 Credentials = new NetworkCredential("yandex@yandex.ru", "password"),
                 EnableSsl = true
             };
-            smptClient.Send("kirillteplycov123@yandex.ru", to, "Проект RegIn", message);
+            smptClient.Send("Kirillteplycov123@yandex.ru", to, "Проект RegIn", message);
         }
     }
 }
