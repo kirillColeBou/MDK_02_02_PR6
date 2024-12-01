@@ -168,10 +168,7 @@ namespace RegIn_Тепляков.Pages
             if (e.Key == Key.Enter) forSetLogin();
         }
 
-        private void SetLogin(object sender, RoutedEventArgs e)
-        {
-            forSetLogin();
-        }
+        private void SetLogin(object sender, RoutedEventArgs e) => forSetLogin();
 
         public void SetNotification(string Message, SolidColorBrush _Color)
         {
