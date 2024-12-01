@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RegIn_Тепляков.Classes;
+using RegIn_Тепляков.Pages;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace RegIn_Тепляков
 {
@@ -20,9 +12,32 @@ namespace RegIn_Тепляков
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow mainWindow;
+        public User userLogin = new User();
+
         public MainWindow()
         {
             InitializeComponent();
+            mainWindow = this;
+            OpenPage(new Login());
+        }
+
+        public void OpenPage(Page page)
+        {
+            DoubleAnimation start = new DoubleAnimation();
+            start.From = 1;
+            start.To = 0;
+            start.Duration = TimeSpan.FromSeconds(0.6);
+            start.Completed += delegate
+            {
+                frame.Navigate(page);
+                DoubleAnimation end = new DoubleAnimation();
+                end.From = 0;
+                end.To = 1;
+                end.Duration = TimeSpan.FromSeconds(1.2);
+                frame.BeginAnimation(Frame.OpacityProperty, end);
+            };
+            frame.BeginAnimation(Frame.OpacityProperty, start);
         }
     }
 }
